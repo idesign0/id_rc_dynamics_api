@@ -101,14 +101,14 @@ struct Header
         {
           for (int k = 0; k < size; k++)
           {
-            *this << prefixed(field->name() + '_' + std::to_string(k), refl->GetMessage(m, field));
+            *this << prefixed(std::string(field->name()) + '_' + std::to_string(k), refl->GetMessage(m, field));
           }
         }
         else
         {
           for (int k = 0; k < size; k++)
           {
-            *this << field->name() + "_" + std::to_string(k);
+            *this << std::string(field->name()) + "_" + std::to_string(k);
           }
         }
       }
@@ -116,11 +116,11 @@ struct Header
       {
         if (field->cpp_type() == FieldDescriptor::CPPTYPE_MESSAGE)
         {
-          *this << prefixed(field->name() + '_', refl->GetMessage(m, field));
+          *this << prefixed(std::string(field->name()) + '_', refl->GetMessage(m, field));
         }
         else
         {
-          *this << field->name();
+          *this << std::string(field->name());
         }
       }
     }
@@ -172,7 +172,7 @@ struct Line
           case FieldDescriptor::CPPTYPE_ENUM:
             for (int k = 0; k < size; ++k)
             {
-              *this << refl->GetRepeatedEnum(m, field, k)->name();
+              *this << std::string(refl->GetRepeatedEnum(m, field, k)->name());
             }
             break;
           case FieldDescriptor::CPPTYPE_FLOAT:
@@ -230,7 +230,7 @@ struct Line
             *this << std::to_string(refl->GetBool(m, field));
             break;
           case FieldDescriptor::CPPTYPE_ENUM:
-            *this << refl->GetEnum(m, field)->name();
+            *this << std::string(refl->GetEnum(m, field)->name());
             break;
           case FieldDescriptor::CPPTYPE_FLOAT:
             *this << std::to_string(refl->GetFloat(m, field));
